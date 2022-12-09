@@ -19,15 +19,81 @@ namespace DataStructures
             //stackArray.PopDisplay(stackArray);
             #endregion
 
+            #region Reverse A string using Stack
             // Reverse A string using Stack
-            Console.WriteLine("Enter the string:");
-            string text = Console.ReadLine();
-            StackArray<char> stackChar = new StackArray<char>(text.Length);
-            for (int i = 0; i < text.Length; i++)
+
+            //Console.WriteLine("Enter the string:");
+            //string text = Console.ReadLine();
+            //StackArray<char> stackChar = new StackArray<char>(text.Length);
+            //for (int i = 0; i < text.Length; i++)
+            //{
+            //    stackChar.Push(text[i]);
+            //}
+            //stackChar.PopDisplay(stackChar);
+            #endregion
+            #region Check if astring is Balanced using Stack
+            // Check if astring is Balanced using Stack
+            Console.WriteLine(Balanced("{([])}"));
+            #endregion
+            
+            
+        }
+        static bool Balanced(string text)
+        {
+            bool flag = true;
+            text = text.Trim();
+            if (text.Length%2==0)
             {
-                stackChar.Push(text[i]);
+                int length= text.Length / 2;
+                StackArray<char> stack1 = new StackArray<char>(length);
+                StackArray<char> stack2 = new StackArray<char>(length);
+
+                for (int i = 0; i < length; i++)
+                {
+                    stack1.Push(text[i]);
+                }
+                for (int i = text.Length-1; i >=length; i--)
+                {
+                    stack2.Push(text[i]);
+                }
+                for (int i = 0; i < length-1; i++)
+                {
+                    if (stack1.Pop() != InverseBracket(stack2.Pop()))
+                    {
+                        return false;
+                    }
+                }
             }
-            stackChar.PopDisplay(stackChar);
+            else flag = false;
+            return flag; 
+        }
+        static char InverseBracket(char bracket)
+        {
+            switch (bracket)
+            {
+                case '[':
+                    bracket= ']';
+                    break;
+                case ']':
+                    bracket = '[';
+                    break;
+                case '{':
+                    bracket = '}';
+                    break;
+                case '}':
+                    bracket = '}';
+                    break;
+                case '(':
+                    bracket=')';
+                    break;
+                case ')':
+                    bracket='(';
+                    break;
+                default:
+                    bracket = ' ';
+                    break;
+            }
+            return bracket;
         }
     }
 
