@@ -6,17 +6,28 @@ namespace DataStructures
     {
         static void Main(string[] args)
         {
-            StackArray<string> stackArray = new StackArray<string>(5);
-            stackArray.Push("a");
-            stackArray.Push("b");
-            stackArray.Push("c");
-            stackArray.Push("d");
-            stackArray.Push("e");
-            Console.WriteLine($"{stackArray.Pop()} is poped from stack");
-            stackArray.Display();
-            Console.WriteLine("POP DISPLAY:");
-            stackArray.PopDisplay(stackArray);
+            #region MyStackTrail
+            //StackArray<string> stackArray = new StackArray<string>(5);
+            //stackArray.Push("a");
+            //stackArray.Push("b");
+            //stackArray.Push("c");
+            //stackArray.Push("d");
+            //stackArray.Push("e");
+            //Console.WriteLine($"{stackArray.Pop()} is poped from stack");
+            //stackArray.Display();
+            //Console.WriteLine("POP DISPLAY:");
+            //stackArray.PopDisplay(stackArray);
+            #endregion
 
+            // Reverse A string using Stack
+            Console.WriteLine("Enter the string:");
+            string text = Console.ReadLine();
+            StackArray<char> stackChar = new StackArray<char>(text.Length);
+            for (int i = 0; i < text.Length; i++)
+            {
+                stackChar.Push(text[i]);
+            }
+            stackChar.PopDisplay(stackChar);
         }
     }
 
@@ -77,7 +88,7 @@ namespace DataStructures
         {
             while (tempStack.Count!=0)
             {
-                Console.WriteLine(Pop());
+                Console.Write(Pop());
             }         
         }
         public T Peak()
