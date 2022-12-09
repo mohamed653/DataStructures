@@ -18,18 +18,20 @@ namespace DataStructures
     {
         // total number of vertices => {n}
         private int vertex;
-        // adjacency list which is {n} number of lists, each list contains one array
+        // adjacency list {ARRAY OF LISTS} which is {n} number of arrays, each list contains one List
         List<int>[] adjacency;
         public Graph(int vertex)
         {
             adjacency = new List<int>[vertex];
             for (int i = 0; i < adjacency.Length; i++)
             {
-                // now we created {n} lists from adjacency[0]=>adjacency[n-1]
+                // now we created {n} arrays from adjacency[0]=>adjacency[n-1]
+                // this simulate a 2d space
                 adjacency[i] = new List<int>();
             }
             this.vertex = vertex;
         }
+
 
     }
 }
