@@ -13,7 +13,11 @@ namespace DataStructures
             bTree.Add(3);
             bTree.Add(10);
             bTree.Add(5);
-
+            bTree.PreOrder(bTree.Root);
+            Console.WriteLine();
+            bTree.InOrder(bTree.Root);
+            Console.WriteLine();
+            bTree.PostOrder(bTree.Root);
         }
     }
     class BNode
@@ -76,6 +80,33 @@ namespace DataStructures
                 }
             }
         }
+        public void PreOrder(BNode bNode)
+        {
+            if (bNode!=null)
+            {
+                Console.WriteLine(" "+bNode.data+" ");
+                PreOrder(bNode.Left);
+                PreOrder(bNode.Right);
+            }
+        }
+        public void InOrder(BNode bNode)
+        {
+            if (bNode != null)
+            {
+                InOrder(bNode.Left);
+                Console.WriteLine(" " + bNode.data + " ");
+                InOrder(bNode.Right);
+            }
+        }
+        public void PostOrder(BNode bNode)
+        {
+            if (bNode != null)
+            {
+                Console.WriteLine(" " + bNode.data + " ");
+                PostOrder(bNode.Right);
+                PostOrder(bNode.Left);
 
+            }
+        }
     }
 }
