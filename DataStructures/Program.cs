@@ -6,164 +6,82 @@ namespace DataStructures
     {
         static void Main(string[] args)
         {
-            #region MyStackTrail
-            //StackArray<string> stackArray = new StackArray<string>(5);
-            //stackArray.Push("a");
-            //stackArray.Push("b");
-            //stackArray.Push("c");
-            //stackArray.Push("d");
-            //stackArray.Push("e");
-            //Console.WriteLine($"{stackArray.Pop()} is poped from stack");
-            //stackArray.Display();
-            //Console.WriteLine("POP DISPLAY:");
-            //stackArray.PopDisplay(stackArray);
-            #endregion
-
-            #region Reverse A string using Stack
-            // Reverse A string using Stack
-
-            //Console.WriteLine("Enter the string:");
-            //string text = Console.ReadLine();
-            //StackArray<char> stackChar = new StackArray<char>(text.Length);
-            //for (int i = 0; i < text.Length; i++)
-            //{
-            //    stackChar.Push(text[i]);
-            //}
-            //stackChar.PopDisplay(stackChar);
-            #endregion
-            #region Check if astring is Balanced using Stack
-            // Check if astring is Balanced using Stack
-            Console.WriteLine(Balanced("{([])}"));
-            #endregion
-            
-            
-        }
-        static bool Balanced(string text)
-        {
-            bool flag = true;
-            text = text.Trim();
-            if (text.Length%2==0)
-            {
-                int length= text.Length / 2;
-                StackArray<char> stack1 = new StackArray<char>(length);
-                StackArray<char> stack2 = new StackArray<char>(length);
-
-                for (int i = 0; i < length; i++)
-                {
-                    stack1.Push(text[i]);
-                }
-                for (int i = text.Length-1; i >=length; i--)
-                {
-                    stack2.Push(text[i]);
-                }
-                for (int i = 0; i < length-1; i++)
-                {
-                    if (stack1.Pop() != InverseBracket(stack2.Pop()))
-                    {
-                        return false;
-                    }
-                }
-            }
-            else flag = false;
-            return flag; 
-        }
-        static char InverseBracket(char bracket)
-        {
-            switch (bracket)
-            {
-                case '[':
-                    bracket= ']';
-                    break;
-                case ']':
-                    bracket = '[';
-                    break;
-                case '{':
-                    bracket = '}';
-                    break;
-                case '}':
-                    bracket = '}';
-                    break;
-                case '(':
-                    bracket=')';
-                    break;
-                case ')':
-                    bracket='(';
-                    break;
-                default:
-                    bracket = ' ';
-                    break;
-            }
-            return bracket;
+            Queue_Array<int> queue_Array = new Queue_Array<int>(3);
+            queue_Array.Enqueue(1);
+            queue_Array.Enqueue(2);
+            queue_Array.Enqueue(3);
+            queue_Array.Display();
+            queue_Array.Dequeue();
+            queue_Array.Display();
         }
     }
 
-    // Implementing Stack Using Array
-    class StackArray<T>
+    // Implementing Queue Using Array
+    class Queue_Array<T>
     {
-        T[] array;
-        private int count;
-        private int top;
-        public int Count
+        int head;
+        int tail;
+        int count;
+        T[] arr;
+        public Queue_Array(int size)
         {
-            get { return count; }
-            set { count = value; }
-        }
-        // Constructor
-        public StackArray(int size)
-        {
-            array = new T[size];
+            arr =  new T[size];
+            head = tail = -1;
             count = 0;
-            top = -1;
         }
-
-        public void Push(T val)
+        public void Enqueue(T val)
         {
-            if (!IsFull())
+            if (tail < arr.Length)
             {
-                array[++top] = val;
+                arr[++tail] = val;
+                head = 0;
                 count++;
             }
-            else Console.WriteLine("Stack OverFlow!");
+            else
+            {
+                Console.WriteLine("Queue OverFlow!");
+            }
         }
-        public T Pop()
+        public T Dequeue()
         {
             if (!IsEmpty())
             {
+                T value = arr[head];
+                // WOW works like a magic 
+                arr[head]= default;
+                head++;
                 count--;
-                return array[top--];
+                return value;
             }
-            else throw new Exception("Stack UnderFlow!");
-        }
-        public bool IsEmpty() 
-        {
-            return (count==0)?true:false;
-        }
-        public bool IsFull()
-        {
-            return (count == array.Length) ? true : false;
+            else
+            {
+                // WOW works like a magic 
+                return default;
+            }
         }
         public void Display()
         {
-            for (int i = top; i >= 0; i--)
+            Console.WriteLine(new string('_', count*3));
+            foreach (var item in arr)
             {
-                Console.WriteLine($"| {array[i]} |");
+                // i have to do this
+                if (item.ToString()!="0")
+                {
+                Console.Write(item + ", ");
+                }
+                
             }
-            Console.WriteLine("=====");
+            Console.WriteLine();
+            Console.WriteLine(new string('_', count*3));
         }
-        public void PopDisplay(StackArray<T> tempStack)
+        public bool IsEmpty()
         {
-            while (tempStack.Count!=0)
+            if (count == 0)
             {
-                Console.Write(Pop());
-            }         
-        }
-        public T Peak()
-        {
-            if (!IsEmpty())
-            {
-                return array[top];
+                return true;
             }
-            else throw new Exception("Stack UnderFlow!");
+            return false;
         }
     }
+
 }
